@@ -39,22 +39,12 @@ jobs:
             sudo rm -rf /var/www/skyight-docs/*
             sudo chown -R ec2-user:ec2-user /var/www/skyight-docs
 
+      # Upload new static build
       - name: Upload static files to EC2
         uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets/EC2_HOST }}
-          username: ec2-user
-          key: ${{ secrets/EC2_SSH_KEY }}
-          source: "out/*"
-          target: "/var/www/skyight-docs/"
-
-      - name: Verify files on EC2
-        uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ec2-user
           key: ${{ secrets.EC2_SSH_KEY }}
-          script: |
-            echo "Listing /var/www/skyight-docs:"
-            ls -R /var/www/skyight-docs || echo "Directory not found"
-
+          source: "out/*"
+          target: "/var/www/skyight-docs"
