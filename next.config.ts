@@ -1,7 +1,7 @@
-/** @type {import('next').NextConfig} */
+import type { NextConfig } from "next";
 
-const nextConfig = {
-  output: 'export', // 🔥 tells Next to generate static HTML in `out/`
+const nextConfig: NextConfig = {
+  /* config options here */
 };
 
 export default nextConfig;

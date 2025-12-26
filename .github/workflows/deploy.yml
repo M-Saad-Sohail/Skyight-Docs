@@ -1,8 +1,8 @@
-name: Deploy Skyight Docs (Static)
+name: Deploy Skyight Docs (SSR with PM2)
 
 on:
   push:
-    branches: [ main ]   # or your deploy branch
+    branches: [ main ]
 
 jobs:
   build-and-deploy:
@@ -20,31 +20,60 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build static site
+      - name: Build Next.js app
         run: npm run build
 
-      # Optional: show build output for debugging
-      - name: List out directory
-        run: ls -R ./out
+      # Archive the built app + needed files
+      - name: Archive build artifacts
+        run: |
+          tar -czf skyight-docs.tar.gz \
+            .next \
+            package.json \
+            package-lock.json \
+            next.config.mjs \
+            tsconfig.json \
+            public \
+            app \
+            pages \
+            styles || true
 
-      # Clean old version on EC2
-      - name: Clean old files on EC2
+      # Upload archive to EC2
+      - name: Upload build to EC2
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ec2-user
+          key: ${{ secrets.EC2_SSH_KEY }}
+          source: "skyight-docs.tar.gz"
+          target: "/home/ec2-user/skyight-docs/"
+
+      # Deploy & restart with PM2
+      - name: Deploy on EC2 with PM2
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ec2-user
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            sudo mkdir -p /var/www/skyight-docs
-            sudo rm -rf /var/www/skyight-docs/*
-            sudo chown -R ec2-user:ec2-user /var/www/skyight-docs
+            cd /home/ec2-user
+            mkdir -p skyight-docs
+            cd skyight-docs
 
-      # Upload new static build
-      - name: Upload static files to EC2
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ec2-user
-          key: ${{ secrets.EC2_SSH_KEY }}
-          source: "out/*"
-          target: "/var/www/skyight-docs"
+            # Extract new build
+            tar -xzf skyight-docs.tar.gz
+            rm -f skyight-docs.tar.gz
+
+            # Install production dependencies
+            npm ci --omit=dev
+
+            # Install pm2 if not installed
+            if ! command -v pm2 >/dev/null 2>&1; then
+              sudo npm install -g pm2
+            fi
+
+            # Run on port 3010 via pm2
+            export PORT=3010
+            pm2 delete skyight-docs || true
+            pm2 start npm --name skyight-docs -- start
+
+            pm2 save
