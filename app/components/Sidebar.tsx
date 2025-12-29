@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
+import SkyightLogo from '@/app/assets/Skyight-Favicon.svg';
 
 interface NavItem {
   id: string;
@@ -86,15 +88,12 @@ export default function Sidebar() {
       <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-slate-950/95 backdrop-blur-xl border-r border-slate-800/50 px-6 py-8">
         {/* Logo */}
         <div className="flex h-16 shrink-0 items-center gap-3 px-2">
-          <div className="p-2 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 shadow-lg shadow-cyan-500/25">
-            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-            </svg>
-          </div>
-          <div>
-            <h1 className="text-lg font-bold text-white">Skyight</h1>
-            <p className="text-xs text-slate-500">B2B Partner API</p>
-          </div>
+          <Image 
+            src={SkyightLogo} 
+            alt="Skyight Logo" 
+            className="h-10 w-auto"
+            priority
+          />
         </div>
 
         {/* Navigation */}
@@ -149,7 +148,7 @@ export default function Sidebar() {
         </nav>
 
         {/* Footer */}
-        <div className="p-4 rounded-xl bg-gradient-to-br from-slate-800/50 to-slate-900/50 border border-slate-700/50">
+        <div className="p-4 rounded-xl bg-linear-to-br from-slate-800/50 to-slate-900/50 border border-slate-700/50">
           <p className="text-xs text-slate-400 mb-2">Need help?</p>
           <a
             href="#support-ticket"

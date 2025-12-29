@@ -20,7 +20,7 @@ export default function EndpointCard({
 }: EndpointCardProps) {
   return (
     <div id={id} className="group scroll-mt-24">
-      <div className="p-6 rounded-2xl bg-gradient-to-br from-slate-800/50 to-slate-900/50 border border-slate-700/50 hover:border-slate-600/50 transition-all duration-300 hover:shadow-xl hover:shadow-slate-900/20">
+      <div className="p-6 rounded-2xl bg-linear-to-br from-slate-800/50 to-slate-900/50 border border-slate-700/50 hover:border-slate-600/50 transition-all duration-300 hover:shadow-xl hover:shadow-slate-900/20">
         <div className="flex flex-wrap items-start gap-4 mb-4">
           <MethodBadge method={method} />
           <h3 className="text-lg font-semibold text-slate-100 group-hover:text-cyan-400 transition-colors">

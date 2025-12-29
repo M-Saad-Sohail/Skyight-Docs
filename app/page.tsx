@@ -8,8 +8,8 @@ export default function Home() {
     <div className="min-h-screen bg-slate-950">
       {/* Background Effects */}
       <div className="fixed inset-0 bg-grid-pattern pointer-events-none" />
-      <div className="fixed inset-0 bg-gradient-to-br from-cyan-950/20 via-transparent to-blue-950/20 pointer-events-none" />
-      
+      <div className="fixed inset-0 bg-linear-to-br from-cyan-950/20 via-transparent to-blue-950/20 pointer-events-none" />
+
       {/* Navigation */}
       <Sidebar />
       <MobileNav />
@@ -17,27 +17,27 @@ export default function Home() {
       {/* Main Content */}
       <main className="lg:pl-72">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-8 pt-20 lg:pt-8">
-          
+
           {/* Hero Section */}
           <section id="overview" className="mb-16 scroll-mt-24">
-            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-800/50 via-slate-900/50 to-slate-950 border border-slate-700/50 p-8 lg:p-12">
+            <div className="relative overflow-hidden rounded-3xl bg-linear-to-br from-slate-800/50 via-slate-900/50 to-slate-950 border border-slate-700/50 p-8 lg:p-12">
               {/* Decorative elements */}
               <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl" />
               <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl" />
-              
+
               <div className="relative">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-medium mb-6">
                   <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
                   B2B Partner Module
                 </div>
-                
+
                 <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
                   Skyight API
-                  <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
+                  <span className="block text-transparent bg-clip-text bg-linear-to-r from-cyan-400 to-blue-500">
                     Documentation
                   </span>
                 </h1>
-                
+
                 <p className="text-lg text-slate-400 mb-8 max-w-2xl leading-relaxed">
                   The B2B Partner module is designed to integrate and expose third-party airline booking APIs to our business partners. This module acts as a middleware layer between B2B clients and airline service providers.
                 </p>
@@ -63,7 +63,7 @@ export default function Home() {
             </div>
 
             {/* Authentication Notice */}
-            <div className="mt-8 p-6 rounded-2xl bg-gradient-to-r from-amber-500/10 to-orange-500/10 border border-amber-500/20">
+            <div className="mt-8 p-6 rounded-2xl bg-linear-to-r from-amber-500/10 to-orange-500/10 border border-amber-500/20">
               <div className="flex items-start gap-4">
                 <div className="p-2 rounded-lg bg-amber-500/20">
                   <svg className="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -82,9 +82,9 @@ export default function Home() {
 
           {/* Company APIs */}
           <section id="company-apis" className="mb-16">
-            <SectionHeader 
+            <SectionHeader
               id="company-apis-header"
-              title="Company APIs" 
+              title="Company APIs"
               description="Manage your company profile, transactions, and wallet operations"
               icon={
                 <svg className="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -92,7 +92,7 @@ export default function Home() {
                 </svg>
               }
             />
-            
+
             <div className="space-y-6">
               <EndpointCard
                 id="create-transaction"
@@ -164,9 +164,9 @@ export default function Home() {
 
           {/* Bank APIs */}
           <section id="bank-apis" className="mb-16">
-            <SectionHeader 
+            <SectionHeader
               id="bank-apis-header"
-              title="Bank APIs" 
+              title="Bank APIs"
               description="Access approved bank information for transactions"
               icon={
                 <svg className="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -174,7 +174,7 @@ export default function Home() {
                 </svg>
               }
             />
-            
+
             <div className="space-y-6">
               <EndpointCard
                 id="get-all-banks"
@@ -188,9 +188,9 @@ export default function Home() {
 
           {/* Booking APIs */}
           <section id="booking-apis" className="mb-16">
-            <SectionHeader 
+            <SectionHeader
               id="booking-apis-header"
-              title="Booking APIs" 
+              title="Booking APIs"
               description="Search flights, create bookings, and manage reservations"
               icon={
                 <svg className="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -198,7 +198,7 @@ export default function Home() {
                 </svg>
               }
             />
-            
+
             <div className="space-y-6">
               <EndpointCard
                 id="get-active-routes"
@@ -413,9 +413,9 @@ export default function Home() {
 
           {/* Support Ticket APIs */}
           <section id="support-ticket" className="mb-16">
-            <SectionHeader 
+            <SectionHeader
               id="support-ticket-header"
-              title="Support Ticket" 
+              title="Support Ticket"
               description="Create and manage support tickets for any issues or inquiries"
               icon={
                 <svg className="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -423,7 +423,7 @@ export default function Home() {
                 </svg>
               }
             />
-            
+
             <div className="space-y-6">
               <EndpointCard
                 id="create-ticket"
@@ -481,7 +481,7 @@ export default function Home() {
           <footer className="mt-16 py-8 border-t border-slate-800/50">
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
               <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg bg-gradient-to-br from-cyan-500/20 to-blue-500/20 border border-cyan-500/20">
+                <div className="p-2 rounded-lg bg-linear-to-br from-cyan-500/20 to-blue-500/20 border border-cyan-500/20">
                   <svg className="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
                   </svg>
@@ -489,7 +489,7 @@ export default function Home() {
                 <span className="text-sm text-slate-400">Skyight B2B Partner API</span>
               </div>
               <p className="text-xs text-slate-500">
-                © {new Date().getFullYear()} Skyight. All rights reserved.
+                © {new Date().getFullYear()} Techxudo. All rights reserved.
               </p>
             </div>
           </footer>
