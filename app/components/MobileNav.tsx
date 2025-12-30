@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import SkyightLogo from '@/app/assets/skyight-logo.svg';
+import SkyightLogo from '@/app/assets/skyight-logo-white.svg';
 
 interface NavItem {
   id: string;
