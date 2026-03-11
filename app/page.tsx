@@ -28,7 +28,7 @@ export default function Home() {
               <div className="relative">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-medium mb-6">
                   <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-                  B2B Partner Module
+                  B2B Partner Modules
                 </div>
 
                 <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
