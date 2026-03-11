@@ -1,70 +1,38 @@
-name: Deploy Skyight Docs (SSR with PM2)
+name: Deploy Next.js Static to S3
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Use Node.js 20
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: 20
 
-      - name: Install dependencies
+      - name: Install Dependencies
         run: npm ci
 
-      - name: Build Next.js app
-        run: npm run build
-
-      - name: Archive build artifacts
+      - name: Build Static Site
         run: |
-          tar -czf skyight-docs.tar.gz \
-            .next \
-            node_modules \
-            package.json \
-            package-lock.json \
-            next.config.ts \
-            tsconfig.json \
-            public \
-            app \
-            pages \
-            styles || true
+          npm run build
 
-      # Upload archive to EC2
-      - name: Upload build to EC2
-        uses: appleboy/scp-action@v0.1.7
+      - name: Deploy to S3
+        uses: jakejarvis/s3-sync-action@master
         with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ec2-user
-          key: ${{ secrets.EC2_SSH_KEY }}
-          source: "skyight-docs.tar.gz"
-          target: "/home/ec2-user/skyight-docs/"
-
-      # Deploy & restart with PM2
-      - name: Deploy on EC2 with PM2
-        uses: appleboy/ssh-action@v1.0.0
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ec2-user
-          key: ${{ secrets.EC2_SSH_KEY }}
-          script: |
-            cd /home/ec2-user
-            mkdir -p skyight-docs
-            cd skyight-docs
-
-            # Extract new build (overwrites old files)
-            tar -xzf skyight-docs.tar.gz
-            rm -f skyight-docs.tar.gz
-
-            export PORT=3010
-            pm2 delete skyight-docs || true
-            pm2 start npm --name skyight-docs -- start
-            pm2 save
+          args: --delete
+        env:
+          AWS_S3_BUCKET: ${{ secrets.S3_BUCKET }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          SOURCE_DIR: "out"
 
